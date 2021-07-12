@@ -1,10 +1,25 @@
-apiVersion: v1
 kind: Service
+apiVersion: v1
 metadata:
-  name: guestbook-ui
+  name: rollout-bluegreen-active
 spec:
-  ports:
-  - port: 80
-    targetPort: 80
   selector:
-    app: guestbook-ui
+    app: rollout-bluegreen
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: rollout-bluegreen-preview
+spec:
+  selector:
+    app: rollout-bluegreen
+  type: LoadBalancer
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
